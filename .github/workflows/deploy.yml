@@ -31,7 +31,8 @@ jobs:
       - name: Deploy Backend
         run: |
           cd worker/
-          echo "${{ secrets.BACKEND_TOML }}" > wrangler.toml
+          echo "${{ secrets.BACKEND_TOML_BASE64 }}" | base64 -d > wrangler.toml
+          cat wrangler.toml
           pnpm install --no-frozen-lockfile
           pnpm run deploy
         env:
